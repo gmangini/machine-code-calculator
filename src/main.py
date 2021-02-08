@@ -1,22 +1,7 @@
 from memory import Memory
-from machine import Machine
+from machine import Machine, parse_word
+from utils import input_with_echo
 import re
-import sys
-
-four_nums = re.compile("^[0-9]{4}$")
-
-# print(sys.stdin.isatty())
-def input_with_echo(prompt: str) -> str:
-    """
-    Since the input function doesn't echo for pipes, I force that here (which makes for easier testing)
-    """
-    if sys.stdin.isatty():
-        # it's not piped, proceed normally
-        return input(prompt)
-    else:
-        got = input(prompt)
-        print(got)
-        return got
 
 def main() -> None:
     '''Main'''
@@ -30,17 +15,18 @@ def main() -> None:
     # This is the main read loop for getting instructions
     while True:
         input_str = input_with_echo(f'[{mem.get_size():04}] ')
-        match = four_nums.match(input_str)
+        word = parse_word(input_str)
 
         # is the input an instruction?
-        if match is not None:
-            match.string[0:2]
-            mem.set_next((match.string[0:2], match.string[2:]))
-        elif input_str == 'q':
+        if word is not None:
+            mem.set_next(word)
+        elif input_str.startswith('q'):
             print('Input end.')
+            print('Running machine')
+            print()
             break
 
-    machine = Machine(mem)
+    machine = Machine(mem, lambda: input_with_echo(" > "))
     machine.run()
 
 

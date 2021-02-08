@@ -1,3 +1,8 @@
+import re
+from typing import Optional
+
+four_nums = re.compile("^[0-9]{4}$")
+
 class Memory:
     """
     Memory space for the machine
@@ -34,3 +39,12 @@ class Memory:
     def set_from_int(self, loc, num: int):
         as_str = str(num)
         self.__vals[loc] = (as_str[0:2], as_str[2:])
+
+    def set_from_word(self, loc, word: tuple[str, str]):
+        self.__vals[loc] = word
+
+def parse_word(word: str) -> Optional[tuple[str, str]]:
+    match = four_nums.match(word)
+    if match is None:
+        return None
+    return (match.string[0:2], match.string[2:])
