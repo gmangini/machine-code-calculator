@@ -1,7 +1,7 @@
 from memory import Memory
 from machine import Machine, parse_word
 from utils import input_with_echo
-import re
+
 
 def main() -> None:
     '''Main'''
@@ -32,4 +32,3 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
-
