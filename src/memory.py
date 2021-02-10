@@ -40,7 +40,7 @@ class Memory:
 
         return int(tup[0].value + tup[1] + tup[2])
 
-    def get_as_instruction(self, location: int) -> Word:
+    def get_as_word(self, location: int) -> Word:
         """
         Gets the raw instruction tuple
         """
