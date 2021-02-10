@@ -1,5 +1,6 @@
 import sys
 
+
 def input_with_echo(prompt: str) -> str:
     """
     Since the input function doesn't echo for pipes, I force that here (which makes for easier testing)

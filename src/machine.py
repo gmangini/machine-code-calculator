@@ -1,10 +1,13 @@
-from memory import Memory, parse_word
+from memory import Memory, parse_word, Word
 from enum import Enum, auto
 from typing import Callable
+from sys import exit
+
 
 class State(Enum):
     RUNNING = auto()
     DONE = auto()
+
 
 class Machine:
     def __init__(self, mem: Memory, reader: Callable[[], str]):
@@ -37,8 +40,8 @@ class Machine:
         self.__instruction_pointer += 1
 
         instruction = self.__mem.get_as_instruction(self.__instruction_pointer)
-        opcode = instruction[0]
-        operand = int(instruction[1])
+        opcode = instruction[1]
+        operand = int(instruction[2])
 
         if opcode in self.__instructions_map:
             self.__instructions_map[opcode](operand)
@@ -51,24 +54,23 @@ class Machine:
 
         return State.RUNNING
 
-
-    def run(self):
+    def run(self) -> None:
         """
         Runs `run_step` until the machine finishes
         """
         while self.run_step() != State.DONE:
             pass
 
-    def __add(self, loc):
+    def __add(self, loc: int) -> None:
         self.__accumulator += self.__mem.get_as_int(loc)
 
-    def __write(self, loc):
+    def __write(self, loc: int) -> None:
         print(self.__mem.get_as_int(loc))
 
-    def __store(self, loc):
+    def __store(self, loc: int) -> None:
         self.__mem.set_from_int(loc, self.__accumulator)
 
-    def __read(self, loc):
+    def __read(self, loc: int) -> None:
         got = self.__reader()
         word = parse_word(got)
         if word is None:
