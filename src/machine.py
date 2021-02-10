@@ -39,7 +39,7 @@ class Machine:
         """
         self.__instruction_pointer += 1
 
-        instruction = self.__mem.get_as_instruction(self.__instruction_pointer)
+        instruction = self.__mem.get_as_word(self.__instruction_pointer)
         opcode = instruction[1]
         operand = int(instruction[2])
 
