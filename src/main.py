@@ -24,10 +24,12 @@ def main() -> None:
             print('Input end.')
             print('Running machine')
             print()
+            print(mem.mem_dump())
             break
 
     machine = Machine(mem, lambda: input_with_echo(" > "))
     machine.run()
+    print(machine.get_accumulator())
 
 
 if __name__ == '__main__':

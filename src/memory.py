@@ -54,6 +54,14 @@ class Memory:
     def set_from_word(self, loc: int, word: Word) -> None:
         self.__vals[loc] = word
 
+    def mem_dump(self) -> List:
+        """
+        return the memory space list
+        """
+        memory = []
+        for i in range(self.get_size()):
+            memory.append(self.__vals[i][-2] + self.__vals[i][-1])
+        return memory
 
 def parse_word(word: str) -> Optional[Word]:
     match = signed_four_nums.match(word)

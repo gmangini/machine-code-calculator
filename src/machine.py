@@ -78,3 +78,9 @@ class Machine:
             exit(1)
         else:
             self.__mem.set_from_word(loc, word)
+
+    def get_accumulator(self):
+        """
+        returns value for accumulator
+        """
+        return self.__accumulator
