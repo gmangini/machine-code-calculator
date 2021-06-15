@@ -10,4 +10,3 @@ cat test.txt | python src/main.py
 ```
 
 Note that this require a *nix shell of some kind.
-# hacker-news-clone
